@@ -3,13 +3,20 @@
 class Timer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { hours: ((Date.now()/1000 - 1635461700) / 3600) };
+    this.state = this.getTime();
+  }
+
+  getTime() {
+    const OUTAGE_START_TIME = 1635461700; //seconds
+    const totalSeconds = Math.floor(Date.now() / 1000) - OUTAGE_START_TIME;
+
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds - (hours * 3600)) / 60);
+    return { hours: hours, minutes: minutes, seconds: totalSeconds % 60 }
   }
 
   tick() {
-    this.setState(state => ({
-      hours: ((Date.now()/1000 - 1635461700) / 3600)
-    }));
+    this.setState(this.getTime());
   }
 
   componentDidMount() {
@@ -24,9 +31,12 @@ class Timer extends React.Component {
     return React.createElement(
       'div',
       null,
-      'Roblox has been down for ',
       this.state.hours,
-      ' hours.'
+      'h ',
+      this.state.minutes,
+      'm ',
+      this.state.seconds,
+      's'
     );
   }
 }
