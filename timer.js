@@ -12,7 +12,11 @@ class Timer extends React.Component {
 
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds - (hours * 3600)) / 60);
-    return { hours: hours, minutes: minutes, seconds: totalSeconds % 60 }
+    return { 
+      hours: hours < 10 ? '0' + hours : hours,
+      minutes: minutes < 10 ? '0' + minutes : minutes,
+      seconds: totalSeconds % 60 < 10 ? '0' + totalSeconds % 60 : totalSeconds % 60
+    }
   }
 
   tick() {
