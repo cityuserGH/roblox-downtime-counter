@@ -11,13 +11,13 @@ class Timer extends React.Component {
   }
 
   getTime() {
-    if (!ROBLOX_IS_DOWN) return {hours: '00', minutes: '00', seconds: '00'};
+    if (!ROBLOX_IS_DOWN) return {hours: '0', minutes: '00', seconds: '00'};
     
     const totalSeconds = Math.floor(Date.now() / 1000) - OUTAGE_START_TIME;
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds - (hours * 3600)) / 60);
     return { 
-      hours: hours < 10 ? '0' + hours : hours,
+      hours: hours,
       minutes: minutes < 10 ? '0' + minutes : minutes,
       seconds: totalSeconds % 60 < 10 ? '0' + totalSeconds % 60 : totalSeconds % 60
     };
